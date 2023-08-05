@@ -14,9 +14,35 @@
 
   <div class="books"></div>
 
+  <dialog class="modal" id="modal">
+    <h2>New Book</h2>
+    <form class="form" method="dialog">
+      <div>
+        <label>Book Name: </label>
+        <input type="text">
+      </div>
+      <br>
+      <div>
+        <label>Author: </label> 
+        <input type="text">
+      </div>
+      <br>
+      <div>
+        <label>Pages:</label> 
+        <input type="number" min="0">
+      </div>
+      <br>
+      <div>
+        <label>Read?</label> 
+        <input type="checkbox">
+      </div>
+      <button class="submit-btn">Submit</button>
+    </form>
+  </dialog>
+
   <footer>
-    <p>Made by <a href="https://www.github.com/guylev38">guylev38</a></p>
-    <button id="add-btn">+</button>
+    <p>Made by <a id="github-link" href="https://www.github.com/guylev38">guylev38</a></p>
+    <button id="add-btn">&plus;</button>
   </footer>
   
 </body>
