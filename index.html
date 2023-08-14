@@ -12,38 +12,52 @@
     <h1>LIBRARY</h1>
   </div>
 
-  <div class="books"></div>
+  <div class="books">
+    <!-- <div class="book">
+      <div class="text">
+        <h4 id="book-name">Book Name: A Game Of Thrones</h4>
+        <h4 id="author">Author: GRRM</h4>
+        <h4 id="pages">Number of Pages: 800</h4>
+      </div>
+      <div class="buttons">
+        <button id="status-btn"></button>
+        <button id="remove-btn">Remove</button>
+      </div>
+    </div> -->
+  </div>
 
   <dialog class="modal" id="modal">
     <h2>New Book</h2>
-    <form class="form" method="dialog">
+    <form class="form" method="POST">
       <div>
-        <label>Book Name: </label>
-        <input type="text">
+        <label for="book-name">Book Name: </label>
+        <input name="book-name"type="text">
       </div>
       <br>
       <div>
-        <label>Author: </label> 
-        <input type="text">
+        <label for="author">Author: </label> 
+        <input name="author" type="text">
       </div>
       <br>
       <div>
-        <label>Pages:</label> 
-        <input type="number" min="0">
+        <label for="pages">Pages:</label> 
+        <input name="pages" type="number" min="0">
       </div>
       <br>
       <div>
-        <label>Read?</label> 
-        <input type="checkbox">
+        <label for="is-read">Read?</label> 
+        <input name="is-read" type="checkbox">
       </div>
-      <button class="submit-btn">Submit</button>
+      <button type="submit" id="submit-btn">Submit</button>
     </form>
+      <button id="close-btn">Cancel</button>
   </dialog>
 
   <footer>
     <p>Made by <a id="github-link" href="https://www.github.com/guylev38">guylev38</a></p>
     <button id="add-btn">&plus;</button>
   </footer>
+  
   
 </body>
 </html>

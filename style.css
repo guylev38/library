@@ -2,11 +2,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
 :root{
-  --background-color: #F9E0BB;
-  --header-color: #C38154;
-  --footer-color: #884A39;
-  --card-color: #FFC26F; 
-  --button-color: #FFC26F;
+  --background-color: #67b99a;
+  --header-color: #358f80;
+  --footer-color: #78c6a3;
+  --card-color: white; 
+  --button-color: white;
+  --shadow: #248277;
 }
 
 
@@ -40,7 +41,53 @@ body{
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
   height: 100%;
+  gap: 50px;
 }
+
+.book {
+  background-color: var(--card-color);
+  width: 200px;
+  height: fit-content;
+  margin: 20px;
+  justify-self: center;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: var(--header-color);
+  box-shadow: 0px 0px 10px var(--shadow);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.text{
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.book > .buttons{
+  width: 100%;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.buttons > button{
+  width: 50%;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+#remove-btn{
+  background-color: coral;
+  color: white;
+}
+
+
+
+
 
 footer{
   grid-row-start: 8;
@@ -73,7 +120,15 @@ footer{
   text-decoration: none;
 }
 
-#add-btn:hover{
+#submit-btn,
+#close-btn{
+  padding: 5px;
+  border-radius: 10px;
+  border: none;
+  background-color: var(--button-color);
+}
+
+button:hover{
   opacity: 80%;
   cursor: pointer;
 }
@@ -87,11 +142,16 @@ footer{
   padding: 50px;
   max-width: 50ch;
   background-color: var(--background-color);
-  border: var(--footer-color) solid;
+  /* border: 3px white solid; */
+  border: none;
+  color: white;
+  border-radius: 20px;
+  box-shadow: 0px 0px 30px var(--shadow);
 }
 
 form{
   margin-top: 20px;
+  margin-bottom: 10px;
 }
 
 form div{
@@ -101,7 +161,21 @@ form div{
 
 input[type="text"],
 input[type="number"]{
-  background-color: var(--background-color);
-  /* box-shadow: 0px 0px 5px black; */
-  border: 1px solid black;
+  background-color: var(--footer-color);
+  color: white;
+  border:none;
+  border-radius: 10px;
+  padding: 5px;
 }
+
+input[type="checkbox"]{
+  background-color: var(--button-color);
+  border: none;
+  border-radius: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  width: 18px;
+  height: 18px;
+     
+}
+
