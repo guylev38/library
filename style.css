@@ -80,6 +80,15 @@ body{
   padding: 10px;
 }
 
+.read{ 
+  background-color: var(--footer-color); 
+  color: white;
+}
+.not-read{ 
+  background-color: lightcoral;  
+  color: black;
+}
+
 #remove-btn{
   background-color: coral;
   color: white;
