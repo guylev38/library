@@ -1,119 +1,161 @@
-let books = [];
+class Book{
+  constructor(
+    title = "Unknown",
+    author = "Unknown",
+    pages = 0,
+    isRead = false
+  ){
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.isRead = isRead;
+  }
 
-function Book(name, author, pageNum, isRead){
-  this.name = name;
-  this.author = author;
-  this.pageNum = pageNum;
-  this.isRead = isRead;
+  changeStatus(){
+    if(this.isRead) this.isRead = false;
+    else this.isRead = true;
+    updateLibrary();
+  }
 }
 
-const booksDiv = document.querySelector('.books');
+class Library{
+  constructor(books = []){
+    this.books = books;
+  }
 
-const form = document.querySelector('.form');
-const modal = document.querySelector('#modal');
-const openModal = document.querySelector('#add-btn');
-const closeModal = document.querySelector('#close-btn');
+  addBook(book) {
+    if(!this.books.includes(book)){
+      this.books.push(book);
+    }
+    updateLibrary();
+  }
 
-var rawBookData = null;
+  removeBook(title){
+    this.books = this.books.filter((book) => book.title != title);
+    updateLibrary(); 
+  }
+
+  getBook(title){
+    for(book of this.books) {
+      if(book.title == title) return book;
+    }
+  }
+}
 
 
-openModal.addEventListener('click', () => {
-  modal.showModal();
-});
+const library = new Library();
+const book1 = new Book("a", "b", 22, true);
+const book2 = new Book("a", "b", 22, true);
 
-closeModal.addEventListener('click', () => {
-  modal.close();
-});
+const booksDiv = document.querySelector(".books");
+const form = document.querySelector(".form");
+const modal = document.querySelector("#modal");
+const openModal = document.querySelector("#add-btn");
+const closeModal = document.querySelector("#close-btn");
 
-form.addEventListener('submit', (e) => {
+let rawBookData = null;
+
+openModal.addEventListener("click", () => modal.showModal());
+closeModal.addEventListener("click", () => modal.close());
+form.addEventListener("submit", (e) => {
   e.preventDefault();
   rawBookData = new FormData(form);
-  for(item of rawBookData)
-    console.log(item);
   createBook();
+  form.reset();
   modal.close();
 });
 
-// Gets data from form and builds a book object
 function createBook(){
-  var name;
-  var author;
-  var pageNum;
-  var isRead = false;
-  var book;
+  let title;
+  let author;
+  let pages;
+  let isRead = false;
+
   for(item of rawBookData){
     switch(item[0]){
-      case "book-name": 
-        name = item[1];
+      case 'title':
+        title = item[1];
         break;
-      case "author":
+      case 'author':
         author = item[1];
         break;
-      case "pages":
-        pageNum = item[1];
+      case 'pages':
+        pages = item[1];
         break;
-      case "is-read":
-        if(item[1] == 'on') 
+      case 'is-read':
+        if(item[1] == "on")
           isRead = true;
         break;
     }
   }
 
-  book = new Book(name, author, pageNum, isRead);
-  console.log(book);
-  books.push(book);
+  if(library.getBook(title)) {
+    alert("Book already exists in library");
+    return;
+  }
 
-
-  updateLibrary();
+  let book = new Book(title, author, pages, isRead);
+  library.addBook(book);
 }
+
+
 
 function updateLibrary(){
-  for(book of books){
-    let bookDiv = document.createElement("div");
+  booksDiv.innerHTML = ''; // Remove all books
+  // Rebuild all books
+  for(book of library.books){
+    // Create the divs
+    let bookDiv = document.createElement("div");  
     bookDiv.className = "book";
-    let text = document.createElement("div");
-    text.className = "text";
-    bookDiv.appendChild(text);
-    let buttonsDiv = document.createElement("div");
-    buttonsDiv.className = "buttons";
-    bookDiv.appendChild(buttonsDiv);
-
-    let bookName = document.createElement("h4");
-    bookName.id = "book-name";
-    bookName.textContent = "Book Name: " + book.name;
-    text.appendChild(bookName);
-    let author = document.createElement("h4");
-    author.textContent = "Author: " + book.author;
-    text.appendChild(author);
-    author.id = "author";
-    let pages = document.createElement("h4");
-    pages.id = "pages";
-    pages.textContent = "Pages: " + book.pageNum;
-    text.appendChild(pages);
-    
-    let statusButton = document.createElement("button");
-    statusButton.id = "status-btn";
-    // call changeStatus function;
-    switch(book.isRead){
-      case true:
-        statusButton.textContent = "Read";
-        statusButton.style.backgroundColor = "var(--footer-color)";
-        statusButton.style.color = "white";
-        break;
-      case false:
-        statusButton.textContent = "Not Read";
-        statusButton.style.backgroundColor = "lightcoral";
-        break;
-    }
-    buttonsDiv.appendChild(statusButton);
-    let removeButton = document.createElement("button");
-    removeButton.id = "remove-btn";
-    removeButton.textContent = "Remove";
-    buttonsDiv.appendChild(removeButton);
 
     booksDiv.appendChild(bookDiv);
-    console.log(bookDiv);
+
+    let textDiv = document.createElement("div");
+    textDiv.className = "text";
+    let buttonsDiv = document.createElement("div");
+    buttonsDiv.className = "buttons";
+
+    // BookDiv
+    bookDiv.appendChild(textDiv);
+    bookDiv.appendChild(buttonsDiv);
+
+    // TextDiv
+    let title = document.createElement("h4");
+    let author = document.createElement("h4");
+    let pages = document.createElement("h4");
+    title.id = "title";
+    title.textContent = `Title: ${book.title}`;
+    author.id = "author";
+    author.textContent = `Author: ${book.author}`;
+    pages.id = "pages";
+    pages.textContent = `Pages: ${book.pages}`;
+    textDiv.appendChild(title);
+    textDiv.appendChild(author);
+    textDiv.appendChild(pages);
+
+    // ButtonsDiv 
+    let statusButton = document.createElement("button");
+    let removeButton = document.createElement("button");
+
+    statusButton.id = "status-btn";
+    if(book.isRead){
+      statusButton.textContent = "Read";
+      statusButton.className = "read";
+    } else {
+      statusButton.textContent = "Not Read";
+      statusButton.className = "not-read";
+    }
+
+    statusButton.addEventListener("click", () => {
+      library.getBook(book.title).changeStatus();
+    });
+
+    removeButton.id = "remove-btn";
+    removeButton.textContent = "Remove";
+    removeButton.addEventListener("click", () => library.removeBook(book.title));
+
+    buttonsDiv.appendChild(statusButton);
+    buttonsDiv.appendChild(removeButton);
+
   }
 }
-
-// function removeBook()
