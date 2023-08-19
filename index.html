@@ -12,12 +12,41 @@
     <h1>LIBRARY</h1>
   </div>
 
-  <div class="books"></div>
+  <div class="books">
+  </div>
+
+  <dialog class="modal" id="modal">
+    <h2>New Book</h2>
+    <form class="form" method="POST">
+      <div>
+        <label for="title">Title: </label>
+        <input name="title" type="text">
+      </div>
+      <br>
+      <div>
+        <label for="author">Author: </label> 
+        <input name="author" type="text">
+      </div>
+      <br>
+      <div>
+        <label for="pages">Pages:</label> 
+        <input name="pages" type="number" min="0">
+      </div>
+      <br>
+      <div>
+        <label for="is-read">Read?</label> 
+        <input name="is-read" type="checkbox">
+      </div>
+      <button type="submit" id="submit-btn">Submit</button>
+    </form>
+      <button id="close-btn">Cancel</button>
+  </dialog>
 
   <footer>
-    <p>Made by <a href="https://www.github.com/guylev38">guylev38</a></p>
-    <button>+</button>
+    <p>Made by <a id="github-link" href="https://www.github.com/guylev38">guylev38</a></p>
+    <button id="add-btn">&plus;</button>
   </footer>
+  
   
 </body>
 </html>
